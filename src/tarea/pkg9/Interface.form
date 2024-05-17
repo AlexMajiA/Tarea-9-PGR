@@ -37,15 +37,11 @@
                   <Component id="nombreLB" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="id_localizacionLb" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="id_managerLb" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="insertarBt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="modificarBt" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="insertarBt" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="codigo_Tf" pref="225" max="32767" attributes="0"/>
                           <Component id="nombreTf" max="32767" attributes="0"/>
@@ -54,9 +50,9 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="actualizarBt" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="borrarBt" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -111,7 +107,6 @@
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="insertarBt" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="modificarBt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="mostrarBt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="limpiarBT" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="salirBt" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -217,11 +212,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertarBtActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="modificarBt">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Modificar"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="borrarBt">
       <Properties>

@@ -38,7 +38,6 @@ public class Interface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDepartamentos = new javax.swing.JTable();
         insertarBt = new javax.swing.JButton();
-        modificarBt = new javax.swing.JButton();
         borrarBt = new javax.swing.JButton();
         mostrarBt = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -97,8 +96,6 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        modificarBt.setText("Modificar");
-
         borrarBt.setText("Borrar");
 
         mostrarBt.setText("Mostrar");
@@ -147,22 +144,19 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(nombreLB)
                     .addComponent(id_localizacionLb)
                     .addComponent(id_managerLb)
+                    .addComponent(insertarBt))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(insertarBt)
-                        .addGap(18, 18, 18)
-                        .addComponent(modificarBt)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(codigo_Tf, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(nombreTf)
                             .addComponent(id_localizacionTf)
                             .addComponent(id_managerTf)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(actualizarBt)
-                        .addGap(18, 18, 18)
+                        .addGap(31, 31, 31)
                         .addComponent(borrarBt)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -204,7 +198,6 @@ public class Interface extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertarBt)
-                    .addComponent(modificarBt)
                     .addComponent(mostrarBt)
                     .addComponent(limpiarBT)
                     .addComponent(salirBt)
@@ -220,7 +213,19 @@ public class Interface extends javax.swing.JFrame {
     System.exit(0);    }//GEN-LAST:event_salirBtActionPerformed
 
     private void actualizarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarBtActionPerformed
-        // TODO add your handling code here:
+
+        ConectorBaseDatos c = new ConectorBaseDatos();
+        int resultado = c.actualizar(
+                Integer.parseInt(this.codigo_Tf.getText()),
+                this.nombreTf.getText(), 
+                Integer.parseInt(this.id_localizacionTf.getText()),
+                Integer.parseInt(this.id_managerTf.getText()));
+
+        if (resultado > 0) {
+            Mostrar();
+        }
+
+
     }//GEN-LAST:event_actualizarBtActionPerformed
 
     private void mostrarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarBtActionPerformed
@@ -229,30 +234,14 @@ public class Interface extends javax.swing.JFrame {
 
     private void insertarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarBtActionPerformed
  
-        int codigo;
-        String nombre;
-        int id_localizacion;
-        int id_manager;
-        
-        try {
-            codigo = Integer.parseInt(this.codigo_Tf.getText());
-            nombre = this.nombreTf.getText();
-            id_localizacion = Integer.parseInt(this.id_localizacionTf.getText());
-            id_manager = Integer.parseInt(this.id_managerTf.getText());
-
-            ConectorBaseDatos c = new ConectorBaseDatos();
-            int resultado = c.altas(codigo, nombre, id_localizacion, id_manager);
+         ConectorBaseDatos c = new ConectorBaseDatos();
+        int resultado = c.altas(Integer.parseInt(this.codigo_Tf.getText()), this.nombreTf.getText(), 
+                Integer.parseInt(this.id_localizacionTf.getText()), Integer.parseInt(this.id_managerTf.getText()));
             
             if (resultado>0) {
                 Mostrar();
             }
-            
-        } catch (NumberFormatException e) {
-            System.err.println("Error en los campos, mete los valores correctos.");
-        }catch( Exception e){
-            
-        }
-
+   
 
     }//GEN-LAST:event_insertarBtActionPerformed
 
@@ -330,7 +319,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton limpiarBT;
-    private javax.swing.JButton modificarBt;
     private javax.swing.JButton mostrarBt;
     private javax.swing.JLabel nombreLB;
     private javax.swing.JTextField nombreTf;

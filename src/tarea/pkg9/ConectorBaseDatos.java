@@ -28,12 +28,10 @@ public class ConectorBaseDatos {
 
         try {
             //Qué BBDD tengo.
-
             Class.forName("com.mysql.jdbc.Driver");
 
             //Creo la conexión con la BBDD
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
-
             String sql = "insert into Departamentos values (?, ?, ?, ?) ";
 
             //PReparo el statement
@@ -48,6 +46,7 @@ public class ConectorBaseDatos {
             resultado = sentencia.executeUpdate();
 
             //Cierro la conexion.
+            sentencia.close();
             cn.close();
 
         } catch (Exception e) {
@@ -92,6 +91,7 @@ public class ConectorBaseDatos {
 
     // U
     public int actualizar(int codigo, String nombre, int id_localizacion, int id_manager) {
+            int filasAfectadas = 0;
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -105,7 +105,7 @@ public class ConectorBaseDatos {
             sentencia.setInt(3, id_manager);
             sentencia.setInt(4, codigo);
 
-            int filasAfectadas = sentencia.executeUpdate();
+            filasAfectadas = sentencia.executeUpdate();
 
             sentencia.close();
             conexion.close();
@@ -113,7 +113,7 @@ public class ConectorBaseDatos {
         } catch (Exception e) {
             System.out.println("Error al actualizar");
         }
-        return 0;
+        return filasAfectadas;
     }
 
     public int borrado(int codigo) {
