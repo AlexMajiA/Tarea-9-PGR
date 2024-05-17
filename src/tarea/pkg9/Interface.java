@@ -5,6 +5,7 @@
 package tarea.pkg9;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -240,6 +241,7 @@ public class Interface extends javax.swing.JFrame {
 
         if (resultado > 0) {
             Mostrar();
+            LimpiarTextos();
         }
 
 
@@ -250,7 +252,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_mostrarBtActionPerformed
 
     private void insertarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarBtActionPerformed
-
+                
         ConectorBaseDatos c = new ConectorBaseDatos();
         int resultado = c.altas(Integer.parseInt(this.codigo_Tf.getText()), this.nombreTf.getText(),
                 Integer.parseInt(this.id_localizacionTf.getText()), Integer.parseInt(this.id_managerTf.getText()));
@@ -263,22 +265,37 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_insertarBtActionPerformed
 
     private void borrarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarBtActionPerformed
+        try {
+            String codigoTexto = codigo_Tf.getText();
 
-        ConectorBaseDatos c = new ConectorBaseDatos();
-        int resultado = c.borrado(Integer.parseInt(this.codigo_Tf.getText()));
+            if (codigoTexto == null || codigoTexto.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Introduzca un dato válido.");
+                return;
+            }
+            
+            int codigo = Integer.parseInt(codigoTexto.trim());
+            ConectorBaseDatos c = new ConectorBaseDatos();
+            int resultado = c.borrado(codigo);
 
-        if (resultado > 0) {
-            Mostrar();
+            if (resultado > 0) {
+                Mostrar();
+                LimpiarTextos();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encuenta.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El código debe ser válido.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error.");
         }
-        LimpiarTextos();
-
-
     }//GEN-LAST:event_borrarBtActionPerformed
 
     private void limpiarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBTActionPerformed
         // TODO add your handling code here:
         DefaultTableModel dm = (DefaultTableModel) tablaDepartamentos.getModel();
         dm.setRowCount(0);
+        LimpiarTextos();
     }//GEN-LAST:event_limpiarBTActionPerformed
 
     private void id_localizacionTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_localizacionTfActionPerformed
@@ -309,9 +326,7 @@ public class Interface extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -343,7 +358,8 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
-   public void LimpiarTextos(){
+ 
+    public void LimpiarTextos(){
        codigo_Tf.setText("");
        nombreTf.setText("");
        id_localizacionTf.setText("");

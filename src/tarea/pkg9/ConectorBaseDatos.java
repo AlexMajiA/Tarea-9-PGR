@@ -4,10 +4,6 @@
  */
 package tarea.pkg9;
 
-//https://github.com/AlexMajiA/Tarea-9-PGR.git
-
-//import com.mysql.jdbc.Connection;
-import com.sun.source.tree.BreakTree;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.sql.*;
