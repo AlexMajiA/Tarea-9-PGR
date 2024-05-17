@@ -7,11 +7,13 @@ package tarea.pkg9;
 //https://github.com/AlexMajiA/Tarea-9-PGR.git
 
 //import com.mysql.jdbc.Connection;
+import com.sun.source.tree.BreakTree;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.management.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -70,12 +72,12 @@ public class ConectorBaseDatos {
 
             while (resultado.next()) {
                 persona d = new persona();
-                
+
                 d.setCodigo(resultado.getInt(1));
                 d.setNombre(resultado.getString(2));
                 d.setId_localizacion(resultado.getInt(3));
                 d.setId_manager(resultado.getInt(4));
-                
+
                 respuesta.add(d);
             }
 
@@ -91,7 +93,7 @@ public class ConectorBaseDatos {
 
     // U
     public int actualizar(int codigo, String nombre, int id_localizacion, int id_manager) {
-            int filasAfectadas = 0;
+        int filasAfectadas = 0;
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -118,24 +120,45 @@ public class ConectorBaseDatos {
 
     public int borrado(int codigo) {
         int resultado = 0;
+     
+        if (codigo == 0) {
+            JOptionPane.showMessageDialog(null, "Código inválido. Introduzca un número válido.");
+            return 0;
+        }
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
             Statement sentencia = conexion.createStatement();
 
-            String query = "delete from Departamentos where codigo = " + codigo;
-            int salida = sentencia.executeUpdate(query);
-            
+            String aviso = "¿Seguro que desea borrar?";
+            int verificacion = JOptionPane.showConfirmDialog(null, aviso, "Advertencia", JOptionPane.OK_CANCEL_OPTION);
+
+            if (verificacion == JOptionPane.OK_OPTION) {
+                String query = "delete from Departamentos where codigo = " + codigo;
+                resultado = sentencia.executeUpdate(query);
+                JOptionPane.showMessageDialog(null, "Se ha borrado correctamente.");
+
+                return resultado;
+
+                //si cancelas el borrado no borra nada.
+            } else {
+                JOptionPane.showMessageDialog(null, "Se ha cancelado.");
+            }
+            //cierro la sentencia y la conexión.
             sentencia.close();
             conexion.close();
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Formato inválido.");
             
-            return salida;
         } catch (Exception e) {
-            System.out.println("Tarea9.ConectorBaseDatos.borrado");
-            return 0;
+            System.out.println("Error al borrar." + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al borrar el registro");
         }
-        
+        return 0;
     }
 
 }
+

@@ -61,6 +61,12 @@ public class Interface extends javax.swing.JFrame {
         id_managerLb.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         id_managerLb.setText("ID Manager");
 
+        id_localizacionTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                id_localizacionTfActionPerformed(evt);
+            }
+        });
+
         tablaDepartamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -157,27 +163,28 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(insertarBt))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codigo_Tf, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(nombreTf)
-                            .addComponent(id_localizacionTf)
-                            .addComponent(id_managerTf)))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(actualizarBt)
                         .addGap(31, 31, 31)
-                        .addComponent(borrarBt)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(borrarBt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(mostrarBt)
-                        .addGap(42, 42, 42)
-                        .addComponent(limpiarBT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombreTf, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigo_Tf, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_localizacionTf, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_managerTf, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mostrarBt)
+                        .addGap(28, 28, 28)
+                        .addComponent(limpiarBT)
+                        .addGap(229, 229, 229)
                         .addComponent(salirBt))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +208,7 @@ public class Interface extends javax.swing.JFrame {
                             .addComponent(id_localizacionLb)
                             .addComponent(id_localizacionTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(id_managerLb)
                             .addComponent(id_managerTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,6 +270,7 @@ public class Interface extends javax.swing.JFrame {
         if (resultado > 0) {
             Mostrar();
         }
+        LimpiarTextos();
 
 
     }//GEN-LAST:event_borrarBtActionPerformed
@@ -272,6 +280,10 @@ public class Interface extends javax.swing.JFrame {
         DefaultTableModel dm = (DefaultTableModel) tablaDepartamentos.getModel();
         dm.setRowCount(0);
     }//GEN-LAST:event_limpiarBTActionPerformed
+
+    private void id_localizacionTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_id_localizacionTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_id_localizacionTfActionPerformed
 
     private void Mostrar() {
 
@@ -331,6 +343,12 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
+   public void LimpiarTextos(){
+       codigo_Tf.setText("");
+       nombreTf.setText("");
+       id_localizacionTf.setText("");
+       id_managerTf.setText("");
+   }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actualizarBt;
