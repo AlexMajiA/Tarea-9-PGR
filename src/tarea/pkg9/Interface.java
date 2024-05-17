@@ -97,6 +97,11 @@ public class Interface extends javax.swing.JFrame {
         });
 
         borrarBt.setText("Borrar");
+        borrarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarBtActionPerformed(evt);
+            }
+        });
 
         mostrarBt.setText("Mostrar");
         mostrarBt.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +117,11 @@ public class Interface extends javax.swing.JFrame {
         jLabel6.setText("Mostrar datos del departamento");
 
         limpiarBT.setText("Limpiar");
+        limpiarBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarBTActionPerformed(evt);
+            }
+        });
 
         salirBt.setText("Salir");
         salirBt.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +227,7 @@ public class Interface extends javax.swing.JFrame {
         ConectorBaseDatos c = new ConectorBaseDatos();
         int resultado = c.actualizar(
                 Integer.parseInt(this.codigo_Tf.getText()),
-                this.nombreTf.getText(), 
+                this.nombreTf.getText(),
                 Integer.parseInt(this.id_localizacionTf.getText()),
                 Integer.parseInt(this.id_managerTf.getText()));
 
@@ -233,17 +243,35 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_mostrarBtActionPerformed
 
     private void insertarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarBtActionPerformed
- 
-         ConectorBaseDatos c = new ConectorBaseDatos();
-        int resultado = c.altas(Integer.parseInt(this.codigo_Tf.getText()), this.nombreTf.getText(), 
+
+        ConectorBaseDatos c = new ConectorBaseDatos();
+        int resultado = c.altas(Integer.parseInt(this.codigo_Tf.getText()), this.nombreTf.getText(),
                 Integer.parseInt(this.id_localizacionTf.getText()), Integer.parseInt(this.id_managerTf.getText()));
-            
-            if (resultado>0) {
-                Mostrar();
-            }
-   
+
+        if (resultado > 0) {
+            Mostrar();
+        }
+
 
     }//GEN-LAST:event_insertarBtActionPerformed
+
+    private void borrarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarBtActionPerformed
+
+        ConectorBaseDatos c = new ConectorBaseDatos();
+        int resultado = c.borrado(Integer.parseInt(this.codigo_Tf.getText()));
+
+        if (resultado > 0) {
+            Mostrar();
+        }
+
+
+    }//GEN-LAST:event_borrarBtActionPerformed
+
+    private void limpiarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBTActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel dm = (DefaultTableModel) tablaDepartamentos.getModel();
+        dm.setRowCount(0);
+    }//GEN-LAST:event_limpiarBTActionPerformed
 
     private void Mostrar() {
 
@@ -267,7 +295,6 @@ public class Interface extends javax.swing.JFrame {
             //añado una línea nueva con los datos del array.
             dm1.addRow(datosTabla);
         }
-
     }
 
     /**
