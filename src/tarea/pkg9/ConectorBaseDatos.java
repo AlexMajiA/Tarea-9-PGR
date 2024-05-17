@@ -39,7 +39,7 @@ public class ConectorBaseDatos {
             //PReparo el statement
             PreparedStatement sentencia = cn.prepareStatement(sql);
 
-            sentencia.setInt(1, 2);
+            sentencia.setInt(1, codigo);
             sentencia.setString(2, nombre);
             sentencia.setInt(3, id_localizacion);
             sentencia.setInt(4, id_manager);

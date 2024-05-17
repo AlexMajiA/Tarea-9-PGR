@@ -214,6 +214,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Insertar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="insertarBtActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="modificarBt">
       <Properties>
@@ -229,6 +232,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Mostrar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarBtActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

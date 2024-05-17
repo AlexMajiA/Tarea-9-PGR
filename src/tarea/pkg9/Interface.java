@@ -91,12 +91,22 @@ public class Interface extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaDepartamentos);
 
         insertarBt.setText("Insertar");
+        insertarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertarBtActionPerformed(evt);
+            }
+        });
 
         modificarBt.setText("Modificar");
 
         borrarBt.setText("Borrar");
 
         mostrarBt.setText("Mostrar");
+        mostrarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarBtActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel5.setText("Datos del departamento");
@@ -213,27 +223,64 @@ public class Interface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_actualizarBtActionPerformed
 
-    private void Mostrar(){
-        DefaultTableModel dm = (DefaultTableModel)tablaDepartamentos.getModel();
-        dm.getDataVector().removeAllElements();
-        
-        ConectorBaseDatos c = new ConectorBaseDatos();
-        
-        ArrayList<persona> departamentos = c.mostrar();
-        
-        for (int i = 0; i <departamentos.size(); i++) {
-            String datosTabla[] = {Integer.toString(departamentos.get(i).getCodigo()), departamentos.get(i).getNombre(),
-                                    Integer.toString(departamentos.get(i).getId_localizacion()), Integer.toString(departamentos.get(i).getId_manager())};
-          
-            //me traigo los datos de la tabla.
-            DefaultTableModel dm1 = (DefaultTableModel)tablaDepartamentos.getModel();
-            
+    private void mostrarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarBtActionPerformed
+        Mostrar();
+    }//GEN-LAST:event_mostrarBtActionPerformed
 
-        //añado una línea nueva con los datos del array.
-        dm1.addRow(datosTabla);
+    private void insertarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarBtActionPerformed
+ 
+        int codigo;
+        String nombre;
+        int id_localizacion;
+        int id_manager;
+        
+        try {
+            codigo = Integer.parseInt(this.codigo_Tf.getText());
+            nombre = this.nombreTf.getText();
+            id_localizacion = Integer.parseInt(this.id_localizacionTf.getText());
+            id_manager = Integer.parseInt(this.id_managerTf.getText());
+
+            ConectorBaseDatos c = new ConectorBaseDatos();
+            int resultado = c.altas(codigo, nombre, id_localizacion, id_manager);
+            
+            if (resultado>0) {
+                Mostrar();
+            }
+            
+        } catch (NumberFormatException e) {
+            System.err.println("Error en los campos, mete los valores correctos.");
+        }catch( Exception e){
+            
         }
-                
+
+
+    }//GEN-LAST:event_insertarBtActionPerformed
+
+    private void Mostrar() {
+
+        //Borrado de los datos.
+        DefaultTableModel dm = (DefaultTableModel) tablaDepartamentos.getModel();
+        dm.getDataVector().removeAllElements();
+
+        //Creación de datos.
+        ConectorBaseDatos c = new ConectorBaseDatos();
+
+        ArrayList<persona> departamentos = c.mostrar();
+
+        //Añado objetos a la tabla.
+        for (int i = 0; i < departamentos.size(); i++) {
+            String datosTabla[] = {Integer.toString(departamentos.get(i).getCodigo()), departamentos.get(i).getNombre(),
+                Integer.toString(departamentos.get(i).getId_localizacion()), Integer.toString(departamentos.get(i).getId_manager())};
+
+            //me traigo los datos de la tabla.
+            DefaultTableModel dm1 = (DefaultTableModel) tablaDepartamentos.getModel();
+
+            //añado una línea nueva con los datos del array.
+            dm1.addRow(datosTabla);
+        }
+
     }
+
     /**
      * @param args the command line arguments
      */

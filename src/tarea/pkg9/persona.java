@@ -10,7 +10,8 @@ package tarea.pkg9;
  */
 public class persona {
     
-    //atributos de la clase
+    //atributos de la clase.
+    
     private int codigo;
     private String nombre;
     private int id_localizacion;
