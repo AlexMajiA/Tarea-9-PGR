@@ -4,6 +4,9 @@
  */
 package tarea.pkg9;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author amjpa
@@ -33,7 +36,7 @@ public class Interface extends javax.swing.JFrame {
         nombreTf = new javax.swing.JTextField();
         id_localizacionTf = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaDepartamentos = new javax.swing.JTable();
         insertarBt = new javax.swing.JButton();
         modificarBt = new javax.swing.JButton();
         borrarBt = new javax.swing.JButton();
@@ -43,6 +46,7 @@ public class Interface extends javax.swing.JFrame {
         id_managerTf = new javax.swing.JTextField();
         limpiarBT = new javax.swing.JButton();
         salirBt = new javax.swing.JButton();
+        actualizarBt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +62,7 @@ public class Interface extends javax.swing.JFrame {
         id_managerLb.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         id_managerLb.setText("ID Manager");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaDepartamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,7 +88,7 @@ public class Interface extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaDepartamentos);
 
         insertarBt.setText("Insertar");
 
@@ -109,6 +113,13 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
+        actualizarBt.setText("Actualizar");
+        actualizarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarBtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,7 +127,7 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(117, 117, 117)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(118, 118, 118))
             .addGroup(layout.createSequentialGroup()
@@ -126,22 +137,24 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(nombreLB)
                     .addComponent(id_localizacionLb)
                     .addComponent(id_managerLb)
-                    .addComponent(insertarBt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(insertarBt)
+                        .addGap(18, 18, 18)
+                        .addComponent(modificarBt)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(codigo_Tf, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(nombreTf)
                             .addComponent(id_localizacionTf)
                             .addComponent(id_managerTf)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(modificarBt)
-                        .addGap(61, 61, 61)
-                        .addComponent(borrarBt)
-                        .addGap(0, 87, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(actualizarBt)
+                        .addGap(18, 18, 18)
+                        .addComponent(borrarBt)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(mostrarBt)
@@ -182,10 +195,11 @@ public class Interface extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(insertarBt)
                     .addComponent(modificarBt)
-                    .addComponent(borrarBt)
                     .addComponent(mostrarBt)
                     .addComponent(limpiarBT)
-                    .addComponent(salirBt))
+                    .addComponent(salirBt)
+                    .addComponent(actualizarBt)
+                    .addComponent(borrarBt))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -195,6 +209,31 @@ public class Interface extends javax.swing.JFrame {
     private void salirBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtActionPerformed
     System.exit(0);    }//GEN-LAST:event_salirBtActionPerformed
 
+    private void actualizarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarBtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarBtActionPerformed
+
+    private void Mostrar(){
+        DefaultTableModel dm = (DefaultTableModel)tablaDepartamentos.getModel();
+        dm.getDataVector().removeAllElements();
+        
+        ConectorBaseDatos c = new ConectorBaseDatos();
+        
+        ArrayList<persona> departamentos = c.mostrar();
+        
+        for (int i = 0; i <departamentos.size(); i++) {
+            String datosTabla[] = {Integer.toString(departamentos.get(i).getCodigo()), departamentos.get(i).getNombre(),
+                                    Integer.toString(departamentos.get(i).getId_localizacion()), Integer.toString(departamentos.get(i).getId_manager())};
+          
+            //me traigo los datos de la tabla.
+            DefaultTableModel dm1 = (DefaultTableModel)tablaDepartamentos.getModel();
+            
+
+        //añado una línea nueva con los datos del array.
+        dm1.addRow(datosTabla);
+        }
+                
+    }
     /**
      * @param args the command line arguments
      */
@@ -231,6 +270,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton actualizarBt;
     private javax.swing.JButton borrarBt;
     private javax.swing.JLabel codigoLb;
     private javax.swing.JTextField codigo_Tf;
@@ -242,12 +282,12 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton limpiarBT;
     private javax.swing.JButton modificarBt;
     private javax.swing.JButton mostrarBt;
     private javax.swing.JLabel nombreLB;
     private javax.swing.JTextField nombreTf;
     private javax.swing.JButton salirBt;
+    private javax.swing.JTable tablaDepartamentos;
     // End of variables declaration//GEN-END:variables
 }

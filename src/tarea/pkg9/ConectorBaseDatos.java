@@ -10,6 +10,7 @@ package tarea.pkg9;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.management.Query;
 
 /**
@@ -56,8 +57,8 @@ public class ConectorBaseDatos {
     }
 
     // R
-    public String mostrar() {
-        String respuesta = "";
+    public ArrayList<persona> mostrar() {
+        ArrayList<persona> respuesta = new ArrayList<persona>();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -69,8 +70,14 @@ public class ConectorBaseDatos {
             ResultSet resultado = sentencia.executeQuery(query);
 
             while (resultado.next()) {
-                respuesta = respuesta + resultado.getInt(1) + " , " + resultado.getString(2) + " , " + resultado.getInt(3) + " , " + resultado.getInt(4) + "\n ";
-
+                persona d = new persona();
+                
+                d.setCodigo(resultado.getInt(1));
+                d.setNombre(resultado.getString(2));
+                d.setId_localizacion(resultado.getInt(3));
+                d.setId_manager(resultado.getInt(4));
+                
+                respuesta.add(d);
             }
 
         } catch (SQLException e) {
