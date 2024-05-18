@@ -232,13 +232,17 @@ public class Interface extends javax.swing.JFrame {
 
     private void actualizarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarBtActionPerformed
 
+        //Creo objeto para aplicar los métodos de la clase.
         ConectorBaseDatos c = new ConectorBaseDatos();
+        
+        //Llamo al método actualizar y cojo los datos de los textfile.
         int resultado = c.actualizar(
                 Integer.parseInt(this.codigo_Tf.getText()),
                 this.nombreTf.getText(),
                 Integer.parseInt(this.id_localizacionTf.getText()),
                 Integer.parseInt(this.id_managerTf.getText()));
 
+        //Compruebo que el resultado sea mayor que 0 y muestro los datos a la vez que borro los campos.
         if (resultado > 0) {
             Mostrar();
             LimpiarTextos();
@@ -252,11 +256,15 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_mostrarBtActionPerformed
 
     private void insertarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarBtActionPerformed
-                
+          
+        //Creo objeto para aplicar los métodos de la clase.
         ConectorBaseDatos c = new ConectorBaseDatos();
+        
+        //Llamo al método altas y cojo los datos de los textfile.
         int resultado = c.altas(Integer.parseInt(this.codigo_Tf.getText()), this.nombreTf.getText(),
                 Integer.parseInt(this.id_localizacionTf.getText()), Integer.parseInt(this.id_managerTf.getText()));
 
+        //Compruebo que el resultado sea mayor que 0 y muestro los datos a la vez que borro los campos.
         if (resultado > 0) {
             Mostrar();
         }
@@ -292,8 +300,11 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_borrarBtActionPerformed
 
     private void limpiarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBTActionPerformed
-        // TODO add your handling code here:
+        
+        // Como tengo los datos en una tabla, aquí obtengo el modelo de la tabla tablaDepartamentos.
         DefaultTableModel dm = (DefaultTableModel) tablaDepartamentos.getModel();
+        
+        //setRowCount(0) establece el número de filas del modelo de la tabla a 0, este método vaciaría todos los campos de entrada.
         dm.setRowCount(0);
         LimpiarTextos();
     }//GEN-LAST:event_limpiarBTActionPerformed
@@ -358,7 +369,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
- 
+    // método para borrar todos los campos de entrada de datos.
     public void LimpiarTextos(){
        codigo_Tf.setText("");
        nombreTf.setText("");

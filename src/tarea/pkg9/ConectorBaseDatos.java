@@ -25,14 +25,14 @@ public class ConectorBaseDatos {
         int resultado = 0;
 
         try {
-            //Qué BBDD tengo.
+            //Cargo el driver para establecer conexión con la BBDD.
             Class.forName("com.mysql.jdbc.Driver");
 
             //Creo la conexión con la BBDD
             Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
             String sql = "insert into Departamentos values (?, ?, ?, ?) ";
 
-            //PReparo el statement
+            //Preparo el statement para ejecutar la sentencia SQL.
             PreparedStatement sentencia = cn.prepareStatement(sql);
 
             sentencia.setInt(1, codigo);
@@ -55,25 +55,34 @@ public class ConectorBaseDatos {
 
     // R
     public ArrayList<persona> mostrar() {
+        
+        //ArrayList donde guardo los resultados de la consulta de la BBDD.  
         ArrayList<persona> respuesta = new ArrayList<persona>();
 
         try {
+            
+            //Cargo el driver para establecer conexión con la BBDD.
             Class.forName("com.mysql.jdbc.Driver");
+            
+            //Creo la conexión con la BBDD
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
+            
+            //Defino la consulta de SQL y la ejecuto guardandola en resultado.
             Statement sentencia = conexion.createStatement();
-
             String query = "select * from Departamentos";
 
             ResultSet resultado = sentencia.executeQuery(query);
 
             while (resultado.next()) {
                 persona d = new persona();
-
+                
+                //Establece los atributos del objeto persona usando los valores obtenidos del ResultSet.
                 d.setCodigo(resultado.getInt(1));
                 d.setNombre(resultado.getString(2));
                 d.setId_localizacion(resultado.getInt(3));
                 d.setId_manager(resultado.getInt(4));
 
+                //Añade el objeto persona a la lista respuesta.
                 respuesta.add(d);
             }
 
@@ -91,20 +100,26 @@ public class ConectorBaseDatos {
     public int actualizar(int codigo, String nombre, int id_localizacion, int id_manager) {
         int filasAfectadas = 0;
         try {
-
+            //Cargo el driver para establecer conexión con la BBDD.
             Class.forName("com.mysql.jdbc.Driver");
+            
+             //Creo la conexión con la BBDD
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
 
+            //Defino la consulta de SQL y la ejecuto guardandola en resultado.
             String query = "Update Departamentos set nombre = ?, id_localizacion = ?, id_manager =? where codigo = ?";
             PreparedStatement sentencia = conexion.prepareStatement(query);
 
+             //Establece los parametros de la consulta.
             sentencia.setString(1, nombre);
             sentencia.setInt(2, id_localizacion);
             sentencia.setInt(3, id_manager);
             sentencia.setInt(4, codigo);
 
+            //ejecuto la consulta de actualización.
             filasAfectadas = sentencia.executeUpdate();
-
+            
+            //cierro la sentencia y la conexión.
             sentencia.close();
             conexion.close();
 
@@ -117,19 +132,27 @@ public class ConectorBaseDatos {
     public int borrado(int codigo) {
         int resultado = 0;
      
+        //Verifica si el código es cero, y muestra un mensaje de error si es así, y retorna 0.
         if (codigo == 0) {
             JOptionPane.showMessageDialog(null, "Código inválido. Introduzca un número válido.");
             return 0;
         }
 
         try {
+            //Cargo el driver para establecer conexión con la BBDD.
             Class.forName("com.mysql.jdbc.Driver");
+            
+            //Creo la conexión con la BBDD
             Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost/75139418M", "root", "");
+            
+             //Defino la consulta de SQL .
             Statement sentencia = conexion.createStatement();
-
+            
+            //Verifica si el usuario quiere borrar el registro.
             String aviso = "¿Seguro que desea borrar?";
             int verificacion = JOptionPane.showConfirmDialog(null, aviso, "Advertencia", JOptionPane.OK_CANCEL_OPTION);
 
+            //Si se pulsa ok en la ventana emergente y borra.
             if (verificacion == JOptionPane.OK_OPTION) {
                 String query = "delete from Departamentos where codigo = " + codigo;
                 resultado = sentencia.executeUpdate(query);
